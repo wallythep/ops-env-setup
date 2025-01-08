@@ -13,3 +13,12 @@ Set-EnvironmentSecret -VaultName "test-devops-rg-kv-wlp" -SecretName "test-kv-se
 
 # Now we can invoke our code to do the devops set up, 
 # and the environment will be set up
+
+
+# Finally, clear the environment variables.
+# Not necessary all the time, especially if you are testing the resource set up,
+# but on a machine that allows access, probably a good idea.
+# WARNING: this doesn't check that this is _your_ variable to clear.
+# WARNING: you could be clearing a significant shell variable instead.
+# Copy and paste as needed.
+Clear-EnvironmentSecret -EnvironmentVariable TEST_1

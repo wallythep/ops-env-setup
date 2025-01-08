@@ -61,8 +61,6 @@ function Get-SecretValue {
     Set-EnvironmentSecret -VaultName "my-key-vault-name" -SecretName "my-secret-name" -EnvironmentVariable TEST_1
     Sets the environment variable with the secret value from Azure key vault.
 #>
-
-
 function Set-EnvironmentSecret {
     [CmdletBinding()]
     param (
@@ -95,5 +93,27 @@ function Set-EnvironmentSecret {
         if ($secret_value){
             Set-Item -Path "Env:/$($EnvironmentVariable)" -Value $secret_value
         }
+    }
+}
+
+function Clear-EnvironmentSecret {
+    [CmdletBinding()]
+    param (
+        # Environment Variable Name
+        [Parameter(Mandatory=$true)]
+        [string]
+        $EnvironmentVariable        
+    )
+    
+    begin {
+        
+    }
+    
+    process {
+        
+    }
+    
+    end {
+        Set-Item -Path "Env:/$($EnvironmentVariable)" -Value ''
     }
 }
