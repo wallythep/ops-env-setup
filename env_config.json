@@ -1,0 +1,15 @@
+{
+    "environment": {
+        "name": "Test",
+        "description": "Test Environment",
+        "client": "test",
+        "env": "dev",
+        "keyVault": "test-devops-rg-kv-wlp"
+    },
+    "variables": [
+        {
+            "secretName":"test-kv-secret-1",
+            "variableName": "TEST_1"
+        }
+    ]
+}

@@ -117,3 +117,74 @@ function Clear-EnvironmentSecret {
         Set-Item -Path "Env:/$($EnvironmentVariable)" -Value ''
     }
 }
+
+function Set-OpsEnvironment {
+    [CmdletBinding()]
+    param (
+        # Environment Config File Path
+        [Parameter(Mandatory=$true)]
+        [string]
+        $ConfigFile
+    )
+    
+    begin {
+        # Check that the file exists
+        $isConfig = Test-Path($ConfigFile)
+        
+    }
+    
+    process {
+        if ($isConfig) {
+            # Write-Output "hello"
+            $config = Get-Content -Raw $ConfigFile | ConvertFrom-Json -Depth 99
+            Write-Output "Setting environment: $($config.environment.name)."
+            $config.variables | ForEach-Object {
+                # Write-Output $_.variableName
+                Set-EnvironmentSecret `
+                    -VaultName $config.environment.keyVault `
+                    -SecretName $_.secretName `
+                    -EnvironmentVariable $_.variableName
+            }
+        }
+    }
+    
+    end {
+        if (!$isConfig){
+            Write-Error "File '$($ConfigFile)' not found."
+        }
+    }
+}
+
+function Clear-OpsEnvironment {
+    [CmdletBinding()]
+    param (
+        # Environment Config File Path
+        [Parameter(Mandatory=$true)]
+        [string]
+        $ConfigFile
+    )
+    
+    begin {
+        # Check that the file exists
+        $isConfig = Test-Path($ConfigFile)
+        
+    }
+    
+    process {
+        if ($isConfig) {
+            # Write-Output "hello"
+            $config = Get-Content -Raw $ConfigFile | ConvertFrom-Json -Depth 99
+            Write-Output "Clearing environment: $($config.environment.name)."
+            $config.variables | ForEach-Object {
+                # Write-Output $_.variableName
+                Clear-EnvironmentSecret -EnvironmentVariable $_.variableName
+            }
+        }
+    }
+    
+    end {
+        if (!$isConfig){
+            Write-Error "File '$($ConfigFile)' not found."
+        }
+    }
+}
