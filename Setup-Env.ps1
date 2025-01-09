@@ -96,6 +96,17 @@ function Set-EnvironmentSecret {
     }
 }
 
+<#
+.SYNOPSIS
+    Clear environment variable
+.DESCRIPTION
+    Clears an environment variable secret value
+.PARAMETER EnvironmentVariable
+    The variable to clear.
+.EXAMPLE
+    Clear-EnvironmentSecret -EnvironmentVariable TEST_1
+    Sets the 'TEST_1' variable value to blank, which effectively removes the variable from the environment.
+#>
 function Clear-EnvironmentSecret {
     [CmdletBinding()]
     param (
@@ -118,6 +129,17 @@ function Clear-EnvironmentSecret {
     }
 }
 
+<#
+.SYNOPSIS
+    Sets environment from config file
+.DESCRIPTION
+    Sets the operations environment from a given configuration file.
+.NOTES
+    See the example config for document structure.
+.EXAMPLE
+    Set-OpsEnvironment -ConfigFile .\env_config.json
+    Reads the given file and sets the variables given therein.
+#>
 function Set-OpsEnvironment {
     [CmdletBinding()]
     param (
@@ -154,6 +176,18 @@ function Set-OpsEnvironment {
         }
     }
 }
+
+<#
+.SYNOPSIS
+    Clears environment from config file
+.DESCRIPTION
+    Clears the operations environment from a given configuration file.
+.NOTES
+    See the example config for document structure.
+.EXAMPLE
+    Clear-OpsEnvironment -ConfigFile .\env_config.json
+    Reads the given file and clears all the variables given therein.
+#>
 
 function Clear-OpsEnvironment {
     [CmdletBinding()]
